@@ -3,6 +3,7 @@ const apiUrl = "https://randomuser.me/api/?";
 
 // create an array for storing api data
 let usrArgs = [];
+let phoneNum = [];
 
 //4
 const listElm = document.querySelector("#user-list");
@@ -62,7 +63,7 @@ const handleOnChange = (e) => {
   fetchUser(params);
 };
 
-//5 search for a contact function
+//5 search for a contact
 const handleOnSearch = (e) => {
   const str = e.value.toLowerCase();
   //console.log(str);
@@ -78,4 +79,32 @@ const handleOnSearch = (e) => {
   });
   displayUsers(filteredArgs);
   console.log(filteredArgs);
+};
+
+//9 search for a phone number
+const handleOnSearchPhone = (e) => {
+  const str = e.value;
+  const filteredNum = usrArgs.filter((item) => {
+    const phone = item.phone.replace(/[^0-9]/g, "");
+    console.log(phone);
+    if (phone.includes(str)) {
+      return item;
+    }
+  });
+  displayUsers(filteredNum);
+};
+//10 search for address
+const handleOnSearchAddress = (e) => {
+  str = e.value.toLocaleLowerCase();
+  const filterAddress = usrArgs.filter((item) => {
+    const address = (
+      item.location.city +
+      "" +
+      item.location.country
+    ).toLocaleLowerCase();
+    if (address.includes(str)) {
+      return item;
+    }
+  });
+  displayUsers(filterAddress);
 };
